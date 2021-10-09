@@ -1,0 +1,50 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="row">
+    <div class="col-md-2">        
+        <form id="seleccion">    
+            <br/>
+            <div class="form-group">
+                <label for="exampleFormControlSelect1">Año:</label>
+                <select class="form-control" id="anyo" style="width:100%" value="0">
+                    <option value="0">Seleccionar...</option>
+                    @foreach (var Anyo in ViewBag.Anyos)
+                    {
+                        <option value="@Anyo.id">@Anyo.anyo</option>
+
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlSelect2">Bimestre:</label>
+                <select multiple class="form-control" id="bimestre" style="width:100%">
+                    @foreach (var Bimestre in ViewBag.Bimestres)
+                    {
+                        <option value="@Bimestre.id">@Bimestre.nombre</option>
+
+                    }
+                </select>
+            </div>  
+            <button type="submit" id="consultar" class="btn btn-primary" style="width:100%">Consultar</button>
+        </form>
+    </div>
+    <div class="col-md-10">
+        <h2>Cursos</h2>
+        <hr />
+        <table width="100%" id="cursos">
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Asignatura</th>
+                    <th>Profesor</th>
+                    <th>Sala</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>    
+</div>
