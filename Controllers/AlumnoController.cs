@@ -25,6 +25,22 @@ namespace InstitutoAlfa.Controllers
             return View();
         }
 
+        public ActionResult NewAlumno()
+        {            
+            return View("New");
+        }
+
+        public ActionResult CreateAlumno(Alumno alumno)
+        {
+            if (ModelState.IsValid)
+            {
+                alumno = alumnoDAO.createAlumno(alumno);
+                // Aquí cualquier uso de las variables del Modelo
+            }            
+
+            return View("Index");
+        }
+
         public ActionResult ViewAlumno(int id_alumno)
         {
             Alumno alumno = alumnoDAO.getAlumnoById(id_alumno);
@@ -32,6 +48,8 @@ namespace InstitutoAlfa.Controllers
             alumno.matriculas = matriculaDAO.getMatriculasByAlumno(alumno);
 
             ViewBag.Alumno = alumno;
+
+            ViewBag.Nacimiento = alumno.nacimiento.ToString("yyyy-MM-dd"); ;
 
             return View("View");
         }

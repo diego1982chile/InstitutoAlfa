@@ -368,11 +368,11 @@ begin
 		open cursor_cursos
 		fetch next from cursor_cursos into @id_curso
 
-		if rand() > 0.6
-		begin
+		--if rand() > 0.5
+		--begin
 			while @@fetch_status = 0
 			begin
-				if rand() > 0.6
+				if rand() > 0.97
 				begin
 					set @nota = round(ABS(CHECKSUM(NEWID()) % 4) + 3 + rand(),1)
 					set @codigo = 'M' + convert(varchar, @id_alumno) + convert(varchar, @id_curso)
@@ -382,7 +382,7 @@ begin
 				fetch next from cursor_cursos into @id_curso
 			end
 
-		end
+		--end
 
 		fetch next from cursor_alumnos into @id_alumno
 

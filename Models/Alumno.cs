@@ -15,6 +15,10 @@ namespace InstitutoAlfa.Models
 
         public List<Matricula> matriculas { get; set; }
 
+        public Alumno()
+        {
+        }
+
         public Alumno(int id, string rut, string nombre, DateTime nacimiento, string genero)
         {
             this.id = id;

@@ -100,6 +100,43 @@ namespace InstitutoAlfa.DAOs
             return alumno;
         }
 
+        public Alumno createAlumno(Alumno alumno)
+        {            
+            string queryString = "insert into alumno values (@rut, @nombre, @nacimiento, @genero) select cast(scope_identity() as int)";            
+            
+            // Create and open the connection in a using block. This
+            // ensures that all resources will be closed and disposed
+            // when the code exits.
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["instituto_alfa"].ConnectionString))
+            {
+                // Create the Command and Parameter objects.
+                SqlCommand command = new SqlCommand(queryString, connection);
+
+                command.Parameters.AddWithValue("@rut", alumno.rut);
+                command.Parameters.AddWithValue("@nombre", alumno.nombre);
+                command.Parameters.AddWithValue("@nacimiento", alumno.nacimiento);
+                command.Parameters.AddWithValue("@genero", alumno.genero);                
+
+                try
+                {
+                    connection.Open();
+                    
+                    int id = (int) command.ExecuteScalar();
+
+                    alumno.id = id;
+
+                    reader.Close();
+                    connection.Close();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
+
+            return alumno;
+        }
+
         private Alumno createAlumnoFromDataRecord(IDataRecord record)
         {
             int id = (int) record[0];

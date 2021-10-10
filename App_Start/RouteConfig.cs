@@ -28,6 +28,18 @@ namespace InstitutoAlfa
             );
 
             routes.MapRoute(
+                name: "NewAlumno",
+                url: "{controller}/{action}",
+                defaults: new { controller = "Alumno", action = "NewAlumno" }
+            );
+
+            routes.MapRoute(
+                name: "CreateAlumno",
+                url: "{controller}/{action}",
+                defaults: new { controller = "Alumno", action = "CreateAlumno" }
+            );
+
+            routes.MapRoute(
                 name: "ViewAlumno",
                 url: "{controller}/{action}/{id_alumno}",
                 defaults: new { controller = "Alumno", action = "ViewAlumno", id_alumno = "" }
@@ -44,7 +56,6 @@ namespace InstitutoAlfa
                 url: "{controller}/{action}/{id_anyo}/{id_bimestre}",
                 defaults: new { controller = "Curso", action = "GetCursos", id_anyo = "", id_bimestre = "" }
             );
-
             
             routes.MapRoute(
                 name: "ViewCurso",
