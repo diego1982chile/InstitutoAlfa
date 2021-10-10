@@ -1,7 +1,19 @@
 ﻿
 $(document).ready(function() {
 
-    $('#cursos').DataTable()
+    $('#cursos').DataTable({
+        "columnDefs": [
+            //{ "visible": false, "targets": 0 },
+            {
+            "targets": 5,
+            //"data": "download_link",
+                "render": function (data, type, row, meta) { 
+                console.log(row[0]);
+                return '<a href="Curso/ViewCurso?id_curso=' + row[0] + '">' + data + '</a>';
+                //return '<a href="Curso/ViewCurso/' + row[0] + '">' + data + '</a>';
+            }
+        }]
+    });
 
     $('#seleccion').on('submit', function (e) {
         e.preventDefault();
@@ -39,6 +51,7 @@ function consultar() {
             console.log(JSON.stringify(this));
             
             var registry = [];
+            registry.push(this.id);
             registry.push(this.codigo);
             registry.push(this.asignatura.nombre);
             registry.push(this.profesor.nombre);

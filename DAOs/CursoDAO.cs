@@ -59,11 +59,11 @@ namespace InstitutoAlfa.DAOs
             return cursos;
         }
 
-        public Curso getCursoById(long id)
+        public Curso getCursoById(int id)
         {
             Curso curso = null;
 
-            string queryString = "select * from curso where id = @id;";
+            string queryString = "select * from curso where id = @id order by codigo;";
 
             // Create and open the connection in a using block. This
             // ensures that all resources will be closed and disposed
@@ -103,7 +103,7 @@ namespace InstitutoAlfa.DAOs
                 {
                     Console.WriteLine(ex.Message);
                 }
-                Console.ReadLine();
+                
             }
 
             return curso;

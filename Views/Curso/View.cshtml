@@ -1,0 +1,46 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+    <div class="row">        
+        <div class="col-md-3">
+            <h2>@ViewBag.Curso.codigo</h2>
+            <hr />            
+            <form class="form-inline">
+                <div class="form-group">
+                    <label style="color:#ababab">Estado:</label>
+                    <label class="form-label">@ViewBag.Curso.estado</label>
+                </div>
+                <div class="form-group">
+                    <label style="color:#ababab">Asignatura:</label>
+                    <label class="form-label">@ViewBag.Curso.asignatura.nombre (@ViewBag.Curso.asignatura.codigo)</label>
+                </div>
+                <div class="form-group">
+                    <label style="color:#ababab">Profesor:</label>
+                    <label class="form-label">@ViewBag.Curso.profesor.nombre (@ViewBag.Curso.profesor.rut)</label>
+                </div>
+                <div class="form-group">
+                    <label style="color:#ababab">Sala:</label>
+                    <label class="form-label">@ViewBag.Curso.sala.codigo</label>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-9">
+            <h2>Alumnos</h2>
+            <hr />
+            <table width="100%" id="cursos">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Código</th>
+                        <th>Asignatura</th>
+                        <th>Profesor</th>
+                        <th>Sala</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>

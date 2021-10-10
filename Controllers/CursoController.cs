@@ -45,5 +45,19 @@ namespace InstitutoAlfa.Controllers
 
             return Json(cursos, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult ViewCurso(int id_curso)
+        {
+            Curso curso = cursoDao.getCursoById(id_curso);
+
+            //List<Curso> cursos = cursoDao.getCursosByAnyoAndBimestre(anyo, bimestre);
+
+            //List<Student> students = new List<Student>();
+            //students = context.Students.ToList();
+
+            ViewBag.Curso = curso;
+
+            return View("View");
+        }
     }
 }

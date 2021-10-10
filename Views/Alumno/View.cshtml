@@ -1,0 +1,70 @@
+﻿@{
+    ViewBag.Title = "Instituto Alfa - Alumno";
+}
+
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Editar alumno</h1>            
+            <hr />
+        </div>        
+        <div class="col-md-3">
+            <form>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Rut</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" value="@ViewBag.Alumno.rut">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Nombre</label>
+                    <input type="text" class="form-control" id="exampleInputPassword1" value="@ViewBag.Alumno.nombre">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Nacimiento</label>
+                    <input type="date" class="form-control" id="exampleInputPassword1" value="@ViewBag.Alumno.nacimiento.ToShortDateString()">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Género</label>
+                    <select class="form-control">
+                        <option value="0">Seleccionar...</option>
+                        <option value="M" @(ViewBag.Alumno.genero=="M"?"selected":"")>M</option>
+                        <option value="F" @(ViewBag.Alumno.genero=="F"?"selected":"")>F</option>
+                    </select>
+                </div>
+                <a class="btn btn-link" role="button" href="@Url.Action("Index", "Alumno")" style="float:left">Volver</a>
+                <button type="submit" class="btn btn-primary" style="float:right">Guardar</button>
+                <button type="submit" class="btn btn-danger" style="float:right">Eliminar</button>
+            </form>
+        </div>
+        <div class="col-md-9">
+            <h3 style="margin-top:0px;">Cursos</h3>
+            <table width="100%" id="matriculas">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Año</th>
+                        <th>Semestre</th>
+                        <th>Código</th>
+                        <th>Asignatura</th>
+                        <th>Nota</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var Matricula in ViewBag.Alumno.matriculas)
+                    {
+                        <tr>
+                            <td>@Matricula.id</td>
+                            <td>@Matricula.curso.anyo.anyo</td>
+                            <td>@Matricula.curso.bimestre.nombre</td>
+                            <td>@Matricula.codigo</td>
+                            <td>@Matricula.curso.asignatura.nombre</td>
+                            <td>@Matricula.nota</td>
+                            <td>
+                                <a href="#">ver</a>
+                            </td>
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+        </div>        
+    </div>    

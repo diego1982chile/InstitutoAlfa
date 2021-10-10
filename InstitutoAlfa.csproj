@@ -127,8 +127,10 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AlumnoController.cs" />
     <Compile Include="Controllers\CursoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="DAOs\MatriculaDAO.cs" />
     <Compile Include="DAOs\CursoDAO.cs" />
     <Compile Include="DAOs\AlumnoDAO.cs" />
     <Compile Include="DAOs\ProfesorDAO.cs" />
@@ -143,6 +145,7 @@
     <Compile Include="Models\Anyo.cs" />
     <Compile Include="Models\Asignatura.cs" />
     <Compile Include="Models\Bimestre.cs" />
+    <Compile Include="Models\Matricula.cs" />
     <Compile Include="Models\Curso.cs" />
     <Compile Include="Models\Profesor.cs" />
     <Compile Include="Models\Sala.cs" />
@@ -196,6 +199,7 @@
     <Content Include="Content\DataTables-1.11.3\js\jquery.dataTables.min.js" />
     <Content Include="Content\datatables.min.css" />
     <Content Include="Content\waitMe.css" />
+    <Content Include="Scripts\alumnos-index.js" />
     <Content Include="Scripts\cursos-index.js" />
     <Content Include="Scripts\datatables.min.js" />
     <Content Include="favicon.ico" />
@@ -231,6 +235,9 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Curso\Index.cshtml" />
+    <Content Include="Views\Curso\View.cshtml" />
+    <Content Include="Views\Alumno\Index.cshtml" />
+    <Content Include="Views\Alumno\View.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

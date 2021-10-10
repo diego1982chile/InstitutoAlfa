@@ -24,14 +24,34 @@ namespace InstitutoAlfa
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}",
-                defaults: new { controller = "Curso", action = "Index" }
+                defaults: new { controller = "Alumno", action = "Index" }
             );
 
+            routes.MapRoute(
+                name: "ViewAlumno",
+                url: "{controller}/{action}/{id_alumno}",
+                defaults: new { controller = "Alumno", action = "ViewAlumno", id_alumno = "" }
+            );
+
+            routes.MapRoute(
+                name: "Curso",
+                url: "{controller}/{action}",
+                defaults: new { controller = "Curso", action = "Index" }
+            );
+            
             routes.MapRoute(
                 name: "GetCursos",
                 url: "{controller}/{action}/{id_anyo}/{id_bimestre}",
                 defaults: new { controller = "Curso", action = "GetCursos", id_anyo = "", id_bimestre = "" }
+            );
+
+            
+            routes.MapRoute(
+                name: "ViewCurso",
+                url: "{controller}/{action}/{id_curso}",
+                defaults: new { controller = "Curso", action = "ViewCurso", id_curso = "" }
             );            
+
         }
     }
 }

@@ -18,7 +18,7 @@ namespace InstitutoAlfa.DAOs
         {
             List<Alumno> alumnos = new List<Alumno>();
 
-            string queryString = "select * from alumno;";
+            string queryString = "select * from alumno order by nombre;";
 
             // Create and open the connection in a using block. This
             // ensures that all resources will be closed and disposed
@@ -104,9 +104,11 @@ namespace InstitutoAlfa.DAOs
         {
             int id = (int) record[0];
             string rut = (string) record[1];
-            string nombre = (string) record[2];            
+            string nombre = (string) record[2];
+            DateTime nacimiento = (DateTime) record[3];
+            string genero = (string) record[4];
 
-            return new Alumno(id, rut, nombre);
+            return new Alumno(id, rut, nombre, nacimiento, genero);
         }
 
     }

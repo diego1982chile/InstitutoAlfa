@@ -1,0 +1,39 @@
+﻿@{
+    ViewBag.Title = "Instituto Alfa - Alumnos";
+}
+
+<div class="row">
+    <div class="col-md-12" id="container">
+        <h2>Alumnos</h2>
+        <hr />
+        <table width="100%" id="alumnos" style="display:none">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Rut</th>
+                    <th>Nombre</th>
+                    <th>Nacimiento</th>
+                    <th>Género</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var Alumno in ViewBag.Alumnos)
+                {
+                    <tr>
+                        <td>@Alumno.id</td>
+                        <td>@Alumno.rut</td>
+                        <td>@Alumno.nombre</td>
+                        <td>@Alumno.nacimiento.ToShortDateString()</td>
+                        <td>@Alumno.genero</td>
+                        <td>
+                            <a href="@Url.Action("ViewAlumno", "Alumno", new { id_alumno = @Alumno.id })">editar</a>
+                        </td>
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+        <button type="submit" class="btn btn-primary">Nuevo</button>
+    </div>    
+</div>

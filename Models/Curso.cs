@@ -16,6 +16,8 @@ namespace InstitutoAlfa.Models
         public string codigo { get; set; }
         public string estado { get; set; }
 
+        public List<Matricula> matriculas { get; set; }
+
         public Curso(int id, Anyo anyo, Bimestre bimestre, Asignatura asignatura, Profesor profesor, Sala sala, string codigo, string estado)
         {
             this.id = id;
@@ -26,6 +28,7 @@ namespace InstitutoAlfa.Models
             this.sala = sala;
             this.codigo = codigo;
             this.estado = estado;
+            matriculas = new List<Matricula>();
         }
     }
 }
