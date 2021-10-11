@@ -146,7 +146,7 @@ namespace InstitutoAlfa.DAOs
         {
             Matricula matricula = null;
 
-            string queryString = "insert into matricula values (@id_alumno, @id_curso, @nota, @codigo) select cast(scope_identity() as int)";
+            string queryString = "insert into matricula (id_alumno, id_curso, codigo) values (@id_alumno, @id_curso, @codigo) select cast(@@IDENTITY as int)";
 
             // Create and open the connection in a using block. This
             // ensures that all resources will be closed and disposed
@@ -159,8 +159,7 @@ namespace InstitutoAlfa.DAOs
                 string codigo = "M" + alumno.id + curso.id;
 
                 command.Parameters.AddWithValue("@id_alumno", alumno.id);
-                command.Parameters.AddWithValue("@id_curso", curso.id);
-                command.Parameters.AddWithValue("@nota", 0);
+                command.Parameters.AddWithValue("@id_curso", curso.id);                
                 command.Parameters.AddWithValue("@codigo", codigo);
 
                 try
@@ -188,8 +187,7 @@ namespace InstitutoAlfa.DAOs
         {
             int id = (int) record[0];
             int id_alumno = (int) record[1];
-            int id_curso = (int) record[2];
-            decimal nota = (decimal) record[3];
+            int id_curso = (int) record[2];            
             string codigo = (string) record[4];            
 
             if(alumno == null)
@@ -197,17 +195,24 @@ namespace InstitutoAlfa.DAOs
                 alumno = alumnoDAO.getAlumnoById(id_alumno);
             }
 
-            Curso curso = cursoDAO.getCursoById(id_curso);            
-                        
-            return new Matricula(id, codigo, nota, curso, alumno);
+            Curso curso = cursoDAO.getCursoById(id_curso);
+
+            if (!record[3].ToString().Equals(""))
+            {
+                decimal nota = (decimal)record[3];
+                return new Matricula(id, codigo, nota, curso, alumno);
+            }
+            else
+            {
+                return new Matricula(id, codigo, curso, alumno);
+            }
         }
 
         private Matricula createMatriculaFromDataRecord(IDataRecord record, Curso curso)
         {
             int id = (int)record[0];
             int id_alumno = (int)record[1];
-            int id_curso = (int)record[2];
-            int nota = (int)record[3];
+            int id_curso = (int)record[2];            
             string codigo = (string)record[4];
 
             if (curso == null)
@@ -216,8 +221,16 @@ namespace InstitutoAlfa.DAOs
             }
 
             Alumno alumno = alumnoDAO.getAlumnoById(id_alumno);
-
-            return new Matricula(id, codigo, nota, curso, alumno);
+            
+            if (!record[3].ToString().Equals(""))
+            {
+                decimal nota = (decimal)record[3];
+                return new Matricula(id, codigo, nota, curso, alumno);
+            }
+            else
+            {
+                return new Matricula(id, codigo, curso, alumno);
+            }
         }
 
         private Matricula createMatriculaFromDataRecord(IDataRecord record)
@@ -225,14 +238,23 @@ namespace InstitutoAlfa.DAOs
             int id = (int)record[0];
             int id_alumno = (int)record[1];
             int id_curso = (int)record[2];
-            int nota = (int)record[3];
+                       
             string codigo = (string)record[4];
             
             Curso curso = cursoDAO.getCursoById(id_curso);
             
             Alumno alumno = alumnoDAO.getAlumnoById(id_alumno);
 
-            return new Matricula(id, codigo, nota, curso, alumno);
+            if (!record[3].ToString().Equals(""))
+            {
+                decimal nota = (decimal)record[3];
+                return new Matricula(id, codigo, nota, curso, alumno);
+            }
+            else
+            {
+                return new Matricula(id, codigo, curso, alumno);
+            }
+            
         }
 
     }

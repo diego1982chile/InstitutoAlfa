@@ -18,6 +18,8 @@ namespace InstitutoAlfa.Controllers
 
         private readonly CursoDAO cursoDao = new CursoDAO();
 
+        private readonly MatriculaDAO matriculaDAO = new MatriculaDAO();
+
         // GET: Curso
         public ActionResult Index()
         {            
@@ -49,13 +51,14 @@ namespace InstitutoAlfa.Controllers
         public ActionResult ViewCurso(int id_curso)
         {
             Curso curso = cursoDao.getCursoById(id_curso);
+            curso.matriculas = matriculaDAO.getMatriculasByCurso(curso);
 
             //List<Curso> cursos = cursoDao.getCursosByAnyoAndBimestre(anyo, bimestre);
 
             //List<Student> students = new List<Student>();
             //students = context.Students.ToList();
 
-            ViewBag.Curso = curso;
+            ViewBag.Curso = curso;            
 
             return View("View");
         }

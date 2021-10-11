@@ -1,3 +1,5 @@
+
+
 USE instituto_alfa
 GO
 
@@ -241,6 +243,10 @@ ALTER TABLE [matricula]
 	PRIMARY KEY CLUSTERED ([id])
 ;
 
+ALTER TABLE [matricula] 
+ ADD CONSTRAINT [UNIQ_alumno_curso] UNIQUE NONCLUSTERED ([id_alumno],[id_curso])
+;
+
 ALTER TABLE [profesor] 
  ADD CONSTRAINT [PK_profesor]
 	PRIMARY KEY CLUSTERED ([id])
@@ -320,3 +326,104 @@ ALTER TABLE [matricula] ADD CONSTRAINT [FK_matricula_alumno]
 ALTER TABLE [matricula] ADD CONSTRAINT [FK_matricula_curso]
 	FOREIGN KEY ([id_curso]) REFERENCES [curso] ([id]) ON DELETE CASCADE ON UPDATE No Action
 ;
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TRIGGER dbo.trg_cursos
+   ON dbo.curso
+   INSTEAD OF INSERT
+AS 
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+	declare @id_anyo int, @id_bimestre int, @id_asignatura int, @id_sala int, @id_profesor int, @codigo varchar(50), @estado varchar(50), @num_cursos int, @message varchar(50)
+
+	select 
+	@id_anyo = inserted.id_anyo, 
+	@id_bimestre = inserted.id_bimestre,
+	@id_asignatura = inserted.id_asignatura,
+	@id_sala = inserted.id_sala,
+	@id_profesor = inserted.id_profesor,
+	@codigo = inserted.codigo,
+	@estado = inserted.estado
+	from inserted;
+
+	select @num_cursos = count(1) 
+	from curso
+	where id_anyo = @id_anyo
+	and id_bimestre = @id_bimestre
+	group by id_anyo, id_bimestre;
+
+	if(@num_cursos >= 20)
+	begin
+        set @message = 'En un bimestre dado se dictan hasta un máximo de 20 cursos!'
+        RAISERROR(@message, 16 ,1)
+        ROLLBACK
+    end
+	else
+	begin
+		insert into curso values(@id_anyo, @id_bimestre, @id_asignatura, @id_sala, @id_profesor, @codigo, @estado);
+	end
+
+END
+GO
+
+ALTER TABLE [dbo].[curso] ENABLE TRIGGER [trg_cursos]
+GO
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TRIGGER [dbo].[trg_matriculas]
+   ON [dbo].[matricula]
+   INSTEAD OF INSERT
+AS 
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+	declare @id_alumno int, @id_curso int, @nota decimal, @codigo varchar(50), @num_alumnos int, @id_sala int, @capacidad int, @message varchar(50)
+
+	select 
+	@id_alumno = inserted.id_alumno, 
+	@id_curso = inserted.id_curso,
+	@nota = inserted.nota,	
+	@codigo = inserted.codigo
+	from inserted;
+
+	select 
+	@num_alumnos = count(1),
+	@id_sala = c.id_sala
+	from matricula m inner join curso c	
+	on m.id_curso = c.id
+	and m.id_curso = @id_curso		
+	group by id_anyo, id_bimestre, id_sala;
+
+	select
+	@capacidad = capacidad
+	from sala where id = @id_sala;
+
+	if(@num_alumnos > @capacidad)
+	begin
+        set @message = 'La cantidad de alumnos no puede exceder la capacidad de la sala!'
+        RAISERROR(@message, 16 ,1)
+        ROLLBACK
+    end
+	else
+	begin
+		insert into matricula values(@id_alumno, @id_curso, @nota, @codigo);
+	end
+
+END
+GO
+
+ALTER TABLE [dbo].[matricula] ENABLE TRIGGER [trg_matriculas]
+GO
+
+

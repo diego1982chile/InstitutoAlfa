@@ -1,7 +1,9 @@
 ﻿
 $(document).ready(function () {
 
+    var id_alumno = $("#id_alumno").val();
 
+    //alert("id_alumno = " + id_alumno);
 
     $('#cursos').DataTable({
         "columnDefs": [
@@ -21,7 +23,7 @@ $(document).ready(function () {
                 "render": function (data, type, row, meta) {
                     //console.log(row[0]);
                     if (row[5] == 'Abierto') {
-                        return '<a href="/Alumno/TakeCurso?id_alumno=' + row[0] + '&id_curso=' +  +'">Tomar</a>';
+                        return '<a href="/Alumno/TakeCurso?id_alumno=' + id_alumno + '&id_curso=' + row[0] +'">Tomar</a>';
                     }
                     else {
                         return 'No Disponible';

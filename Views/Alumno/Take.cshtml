@@ -3,32 +3,37 @@
 }
 
     <div class="row">
+        @Html.Partial("_Flash")
         <div class="col-md-3">
             <h2>@ViewBag.Alumno.nombre</h2>
             <hr />
             <form class="form-inline">
+                <input type="hidden" name="id" class="form-control" id="id_alumno" value="@ViewBag.Alumno.id">
                 <div class="form-group">
                     <label style="color:#ababab">Rut:</label>
                     <label class="form-label">@ViewBag.Alumno.rut</label>
                 </div>
+                <br />
                 <div class="form-group">
                     <label style="color:#ababab">Nombre:</label>
                     <label class="form-label">@ViewBag.Alumno.nombre</label>
                 </div>
+                <br />
                 <div class="form-group">
                     <label style="color:#ababab">Nacimiento:</label>
                     <label class="form-label">@ViewBag.Alumno.nacimiento</label>
                 </div>
+                <br />
                 <div class="form-group">
                     <label style="color:#ababab">Género:</label>
                     <label class="form-label">@ViewBag.Alumno.genero</label>
                 </div>
             </form>
-            <h3>Selección</h3>            
+            <h3>Selección</h3>
             <form id="seleccion">
                 <div class="form-group">
                     <label for="exampleFormControlSelect1">Año:</label>
-                    <select class="form-control" id="anyo" style="width:100%" value="0">
+                    <select class="form-control" id="anyo" value="0">
                         <option value="0">Seleccionar...</option>
                         @foreach (var Anyo in ViewBag.Anyos)
                         {
@@ -39,7 +44,7 @@
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlSelect2">Bimestre:</label>
-                    <select multiple class="form-control" id="bimestre" style="width:100%">
+                    <select multiple class="form-control" id="bimestre">
                         @foreach (var Bimestre in ViewBag.Bimestres)
                         {
                             <option value="@Bimestre.id">@Bimestre.nombre</option>
@@ -47,7 +52,9 @@
                         }
                     </select>
                 </div>
-                <button type="submit" id="consultar" class="btn btn-primary" style="width:100%">Consultar</button>
+                <button type="submit" id="consultar" class="btn btn-primary" style="float:right">Consultar</button>
+                
+                <a class="btn btn-info" role="button" style="float:left" href="@Url.Action("ViewAlumno", "Alumno", new { id_alumno = @ViewBag.Alumno.id })">Volver</a>
             </form>
         </div>
         <div class="col-md-9">

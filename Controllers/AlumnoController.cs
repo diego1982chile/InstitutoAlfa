@@ -152,8 +152,14 @@ namespace InstitutoAlfa.Controllers
                 return View("View").Information("Se ha tomado el curso " + curso.codigo + " correctamente");                
             }
             catch (Exception e)
-            {
-                return View("Index").Warning("Error: " + e.Message);
+            {                
+                List<Anyo> anyos = anyoDAO.getAllAnyos();
+                List<Bimestre> bimestres = bimestreDAO.getAllBimestres();
+                ViewBag.Anyos = anyos;
+                ViewBag.Bimestres = bimestres;
+                ViewBag.Alumno = alumno;
+                alumno.matriculas = matriculaDAO.getMatriculasByAlumno(alumno);
+                return View("Take").Warning("Error: " + e.Message);
             }
             
         }

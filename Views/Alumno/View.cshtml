@@ -48,8 +48,8 @@
                                     <th>Id</th>
                                     <th>Año</th>
                                     <th>Semestre</th>
-                                    <th>Código</th>
                                     <th>Asignatura</th>
+                                    <th>Profesor</th>
                                     <th>Nota</th>
                                     <th></th>
                                 </tr>
@@ -57,18 +57,17 @@
                             <tbody>
                                 @foreach (var Matricula in ViewBag.Alumno.matriculas)
                                 {
-                                    <tr>
-                                        <td>@Matricula.id</td>
-                                        <td>@Matricula.curso.anyo.anyo</td>
-                                        <td>@Matricula.curso.bimestre.nombre</td>
-                                        <td>@Matricula.codigo</td>
-                                        <td>@Matricula.curso.asignatura.nombre</td>
-                                        <td>@Matricula.nota</td>
-                                        <td>
-                                            <a href="#">ver</a>
-                                        </td>
-                                    </tr>
-
+                                <tr>
+                                    <td>@Matricula.id</td>
+                                    <td>@Matricula.curso.anyo.anyo</td>
+                                    <td>@Matricula.curso.bimestre.nombre</td>
+                                    <td>@Matricula.curso.asignatura.nombre</td>
+                                    <td>@Matricula.curso.profesor.nombre</td>
+                                    <td>@(Matricula.nota==0?'-':Matricula.nota)</td>
+                                    <td>
+                                        <a href="@Url.Action("ViewCurso", "Curso", new { id_curso = @Matricula.curso.id })">ver</a>
+                                    </td>
+                                </tr>
                                 }
                             </tbody>
                         </table>
@@ -77,9 +76,9 @@
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
                         <button type="submit" class="btn btn-primary">Guardar</button>
-                        <a class="btn btn-info" role="button" href="@Url.Action("TakeAlumno", "Alumno", new { id_alumno = @ViewBag.Alumno.id })">Tomar Curso</a>
+                        <a class="btn btn-success" role="button" href="@Url.Action("TakeAlumno", "Alumno", new { id_alumno = @ViewBag.Alumno.id })" style="float:right">Tomar Curso</a>
                         <a class="btn btn-danger" role="button" href="@Url.Action("DeleteAlumno", "Alumno", new { id_alumno = @ViewBag.Alumno.id })">Eliminar</a>
-                        <a class="btn btn-default" role="button" href="@Url.Action("Index", "Alumno")">Volver</a>
+                        <a class="btn btn-info" role="button" href="@Url.Action("Index", "Alumno")">Volver</a>
                     </div>
                 </div>
             </form>            

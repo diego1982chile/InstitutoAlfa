@@ -6,6 +6,7 @@
         <div class="col-md-12">
             <h1>Nuevo alumno</h1>
             <hr />
+            @Html.Partial("_Flash")
         </div>
         <div class="col-md-12">
             <form class="form-horizontal" method="post" action="@Url.Action("CreateAlumno", "Alumno")">                
@@ -41,7 +42,7 @@
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
                         <button type="submit" class="btn btn-primary">Guardar</button>
-                        <a class="btn btn-default" role="button" href="@Url.Action("Index", "Alumno")">Volver</a>
+                        <a class="btn btn-info" role="button" href="@Url.Action("Index", "Alumno")">Volver</a>
                     </div>
                 </div>
             </form>

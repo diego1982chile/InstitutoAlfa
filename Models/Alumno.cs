@@ -38,5 +38,16 @@ namespace InstitutoAlfa.Models
                    nacimiento == alumno.nacimiento &&
                    genero == alumno.genero;                   
         }
+
+        public override int GetHashCode()
+        {
+            int hashCode = 1729070767;
+            hashCode = hashCode * -1521134295 + id.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(rut);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(nombre);
+            hashCode = hashCode * -1521134295 + nacimiento.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(genero);
+            return hashCode;
+        }
     }
 }

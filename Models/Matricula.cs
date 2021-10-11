@@ -20,5 +20,13 @@ namespace InstitutoAlfa.Models
             this.curso = curso;
             this.alumno = alumno;
         }
+
+        public Matricula(int id, string codigo, Curso curso, Alumno alumno)
+        {
+            this.id = id;
+            this.codigo = codigo;
+            this.curso = curso;
+            this.alumno = alumno;
+        }
     }
 }
