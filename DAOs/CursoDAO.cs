@@ -112,6 +112,42 @@ namespace InstitutoAlfa.DAOs
             return curso;
         }
 
+        public List<Curso> getCursosAbiertos(Alumno alumno)
+        {
+            List<Curso> cursos = new List<Curso>();
+
+            string queryString = "select * from curso where estado = 'Abierto' and id not in (select id_curso from matricula where id_alumno = @id_alumno) order by codigo;";            
+
+            // Create and open the connection in a using block. This
+            // ensures that all resources will be closed and disposed
+            // when the code exits.
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["instituto_alfa"].ConnectionString))
+            {
+                // Create the Command and Parameter objects.
+                SqlCommand command = new SqlCommand(queryString, connection);
+
+                command.Parameters.AddWithValue("@id_alumno", alumno.id);
+
+                try
+                {
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        cursos.Add(createCursoFromDataRecord((IDataRecord)reader));
+                    }
+                    reader.Close();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    throw new Exception(ex.Message);
+                }
+            }
+
+            return cursos;
+        }
+
         private Curso createCursoFromDataRecord(IDataRecord record)
         {
             int id = (int) record[0];

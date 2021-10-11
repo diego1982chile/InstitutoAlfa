@@ -41,7 +41,12 @@ namespace InstitutoAlfa.Controllers
             if (ModelState.IsValid)
             {                                
                 try
-                {
+                {                    
+                    if(!Rut.ValidaRut(alumno.rut.ToUpper()))
+                    {
+                        throw new Exception("Rut no válido");
+                    }
+
                     alumno = alumnoDAO.createAlumno(alumno);                    
                     return RedirectToAction("Index").Information("Se ha creado el alumno correctamente");
                 }
@@ -52,7 +57,7 @@ namespace InstitutoAlfa.Controllers
             }  
             else
             {
-                return View("New").Warning("Error: El formulario no corresponde al modelo Alumno");
+                return View("New").Warning("Error: El formulario no es válido. Por favor revise bien los datos");
             }
 
         }
@@ -127,11 +132,15 @@ namespace InstitutoAlfa.Controllers
 
             List<Bimestre> bimestres = bimestreDAO.getAllBimestres();
 
+            List<Curso> cursos = cursoDAO.getCursosAbiertos(alumno);
+
             ViewBag.Anyos = anyos;
 
             ViewBag.Bimestres = bimestres;            
 
             ViewBag.Alumno = alumno;
+
+            ViewBag.Cursos = cursos;
 
             return View("Take");
         }

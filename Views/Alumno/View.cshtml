@@ -75,10 +75,10 @@
                 </div>
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
+                        <a class="btn btn-info" role="button" href="@Url.Action("Index", "Alumno")">Volver</a>
+                        <a class="btn btn-danger" role="button" href="@Url.Action("DeleteAlumno", "Alumno", new { id_alumno = @ViewBag.Alumno.id })">Eliminar</a>
                         <button type="submit" class="btn btn-primary">Guardar</button>
                         <a class="btn btn-success" role="button" href="@Url.Action("TakeAlumno", "Alumno", new { id_alumno = @ViewBag.Alumno.id })" style="float:right">Tomar Curso</a>
-                        <a class="btn btn-danger" role="button" href="@Url.Action("DeleteAlumno", "Alumno", new { id_alumno = @ViewBag.Alumno.id })">Eliminar</a>
-                        <a class="btn btn-info" role="button" href="@Url.Action("Index", "Alumno")">Volver</a>
                     </div>
                 </div>
             </form>            

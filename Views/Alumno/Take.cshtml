@@ -21,16 +21,19 @@
                 <br />
                 <div class="form-group">
                     <label style="color:#ababab">Nacimiento:</label>
-                    <label class="form-label">@ViewBag.Alumno.nacimiento</label>
+                    <label class="form-label">@ViewBag.Alumno.nacimiento.ToShortDateString()</label>
                 </div>
                 <br />
                 <div class="form-group">
                     <label style="color:#ababab">Género:</label>
                     <label class="form-label">@ViewBag.Alumno.genero</label>
                 </div>
+                <br />
+                <br />                                
+                <a class="btn btn-info" role="button" href="@Url.Action("ViewAlumno", "Alumno", new { id_alumno = @ViewBag.Alumno.id })">Volver</a>                
             </form>
-            <h3>Selección</h3>
-            <form id="seleccion">
+            <h3 style="display:none">Selección</h3>
+            <form id="seleccion" style="display:none">
                 <div class="form-group">
                     <label for="exampleFormControlSelect1">Año:</label>
                     <select class="form-control" id="anyo" value="0">
@@ -73,6 +76,20 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @foreach (var Curso in ViewBag.Cursos)
+                    {
+                    <tr>
+                        <td>@Curso.id</td>
+                        <td>@Curso.anyo.anyo</td>
+                        <td>@Curso.bimestre.nombre</td>
+                        <td>@Curso.asignatura.nombre</td>
+                        <td>@Curso.profesor.nombre</td>                        
+                        <td>@Curso.estado</td>
+                        <td>
+                            <a href="@Url.Action("TakeCurso", "Alumno", new { id_alumno = ViewBag.Alumno.id, id_curso = Curso.id })">Tomar</a>                            
+                        </td>
+                    </tr>
+                    }
                 </tbody>
             </table>
         </div>

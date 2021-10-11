@@ -57,7 +57,7 @@
                             <td>@Matricula.id</td>
                             <td>@Matricula.alumno.rut</td>
                             <td>@Matricula.alumno.nombre</td>
-                            <td>@Matricula.alumno.nacimiento</td>
+                            <td>@Matricula.alumno.nacimiento.ToShortDateString()</td>
                             <td>@Matricula.alumno.genero</td>
                             <td>@(Matricula.nota==0?'-':Matricula.nota)</td>
                         </tr>
