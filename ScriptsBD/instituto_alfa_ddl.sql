@@ -314,9 +314,9 @@ ALTER TABLE [curso] ADD CONSTRAINT [FK_curso_sala]
 ;
 
 ALTER TABLE [matricula] ADD CONSTRAINT [FK_matricula_alumno]
-	FOREIGN KEY ([id_alumno]) REFERENCES [alumno] ([id]) ON DELETE No Action ON UPDATE No Action
+	FOREIGN KEY ([id_alumno]) REFERENCES [alumno] ([id]) ON DELETE CASCADE ON UPDATE No Action
 ;
 
 ALTER TABLE [matricula] ADD CONSTRAINT [FK_matricula_curso]
-	FOREIGN KEY ([id_curso]) REFERENCES [curso] ([id]) ON DELETE No Action ON UPDATE No Action
+	FOREIGN KEY ([id_curso]) REFERENCES [curso] ([id]) ON DELETE CASCADE ON UPDATE No Action
 ;

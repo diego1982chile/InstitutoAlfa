@@ -43,7 +43,16 @@ namespace InstitutoAlfa
 
             // Cursos            
             bundles.Add(new ScriptBundle("~/bundles/cursosindexjs").Include(
-                 "~/Scripts/cursos-index.js"));            
+                 "~/Scripts/cursos-index.js"));
+
+            // Flash Messagges            
+            bundles.Add(new ScriptBundle("~/bundles/jquerycookiejs").Include(
+                 "~/Scripts/jquery.cookie.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/jqueryflashmessagejs").Include(
+                 "~/Scripts/jquery.flashmessage.js"));
+
+            
         }
     }
 }

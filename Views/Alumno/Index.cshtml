@@ -1,11 +1,12 @@
 ﻿@{
-    ViewBag.Title = "Instituto Alfa - Alumnos";
+    ViewBag.Title = "Instituto Alfa - Alumnos";    
 }
 
 <div class="row">
     <div class="col-md-12" id="container">
-        <h2>Alumnos</h2>
+        <h1>Alumnos</h1>
         <hr />
+        @Html.Partial("_Flash")
         <table width="100%" id="alumnos" style="display:none">
             <thead>
                 <tr>
@@ -33,7 +34,7 @@
 
                 }
             </tbody>
-        </table>        
-        <a class="btn btn-info" role="button" href="@Url.Action("NewAlumno", "Alumno")" style="float:right">Nuevo</a>
-    </div>    
+        </table>
+        <a class="btn btn-primary" role="button" href="@Url.Action("NewAlumno", "Alumno")" style="float:right">Nuevo</a>
+    </div>
 </div>

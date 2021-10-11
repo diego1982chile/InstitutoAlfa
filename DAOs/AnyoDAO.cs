@@ -43,6 +43,7 @@ namespace InstitutoAlfa.DAOs
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
+                    throw new Exception(ex.Message);
                 }                
             }
 
@@ -94,6 +95,7 @@ namespace InstitutoAlfa.DAOs
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
+                    throw new Exception(ex.Message);
                 }                
             }
 

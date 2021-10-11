@@ -10,6 +10,7 @@
     @Styles.Render("~/bundles/datatablescss")    
 </head>
 <body>
+    @Scripts.Render("~/bundles/jquery")
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -23,25 +24,28 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Alumnos", "Index", "Alumno")</li>
-                    <li>@Html.ActionLink("Cursos", "Index", "Curso")</li>                    
-                </ul>
+                    <li>@Html.ActionLink("Cursos", "Index", "Curso")</li>
+                </ul>                
             </div>
         </div>
     </div>
     <div class="container body-content">
-        @RenderBody()
+        @RenderBody()        
         <hr />
         <footer>
             <p>&copy; @DateTime.Now.Year - Instituto Alfa ASP.NET</p>
         </footer>
-    </div>
+    </div>    
 
-    @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/datatablesjs")
     @Scripts.Render("~/bundles/loadingoverlay")
     @Scripts.Render("~/bundles/alumnosindexjs")
     @Scripts.Render("~/bundles/cursosindexjs")
+
+    @Scripts.Render("~/bundles/jquerycookiejs")
+    @Scripts.Render("~/bundles/jqueryflashmessagejs")
+
     @RenderSection("scripts", required: false)
 
 </body>

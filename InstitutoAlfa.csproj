@@ -138,6 +138,7 @@
     <Compile Include="DAOs\AsignaturaDAO.cs" />
     <Compile Include="DAOs\BimestreDAO.cs" />
     <Compile Include="DAOs\AnyoDAO.cs" />
+    <Compile Include="Extensions\FlashMessageExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -214,6 +215,8 @@
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.cookie.js" />
+    <Content Include="Scripts\jquery.flashmessage.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -239,6 +242,8 @@
     <Content Include="Views\Alumno\Index.cshtml" />
     <Content Include="Views\Alumno\View.cshtml" />
     <Content Include="Views\Alumno\New.cshtml" />
+    <Content Include="Views\Shared\_Flash.cshtml" />
+    <Content Include="Views\Alumno\Take.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

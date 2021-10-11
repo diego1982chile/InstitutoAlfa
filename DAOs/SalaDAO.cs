@@ -40,6 +40,7 @@ namespace InstitutoAlfa.DAOs
                     while (reader.Read())
                     {
                         sala = createSalaFromDataRecord((IDataRecord)reader);
+                        cont++;
                     }
 
                     if (cont == 0)
@@ -57,6 +58,7 @@ namespace InstitutoAlfa.DAOs
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
+                    throw new Exception(ex.Message);
                 }                
             }
 

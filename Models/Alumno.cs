@@ -28,5 +28,15 @@ namespace InstitutoAlfa.Models
             this.genero = genero;
             matriculas = new List<Matricula>();
         }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Alumno alumno &&
+                   id == alumno.id &&
+                   rut == alumno.rut &&
+                   nombre == alumno.nombre &&
+                   nacimiento == alumno.nacimiento &&
+                   genero == alumno.genero;                   
+        }
     }
 }

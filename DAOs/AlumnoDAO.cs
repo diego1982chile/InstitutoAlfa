@@ -43,7 +43,8 @@ namespace InstitutoAlfa.DAOs
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(ex.Message);
+                    throw new Exception(ex.Message);
+                    //Console.WriteLine(ex.Message);
                 }                
             }
 
@@ -76,6 +77,7 @@ namespace InstitutoAlfa.DAOs
                     while (reader.Read())
                     {
                         alumno = createAlumnoFromDataRecord((IDataRecord)reader);
+                        cont++;
                     }
 
                     if (cont == 0)
@@ -93,7 +95,8 @@ namespace InstitutoAlfa.DAOs
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(ex.Message);
+                    //Console.WriteLine(ex.Message);
+                    throw new Exception(ex.Message);
                 }                
             }
 
@@ -124,17 +127,97 @@ namespace InstitutoAlfa.DAOs
                     int id = (int) command.ExecuteScalar();
 
                     alumno.id = id;
-
-                    reader.Close();
+                    
                     connection.Close();
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(ex.Message);
+                    //Console.WriteLine(ex.Message);
+                    throw new Exception(ex.Message);
                 }
             }
 
             return alumno;
+        }
+
+        public Alumno updateAlumno(Alumno alumno)
+        {
+            string queryString = "update alumno set rut = @rut, nombre = @nombre, nacimiento = @nacimiento, genero = @genero where id = @id select cast(@@ROWCOUNT as int)";
+
+            // Create and open the connection in a using block. This
+            // ensures that all resources will be closed and disposed
+            // when the code exits.
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["instituto_alfa"].ConnectionString))
+            {
+                // Create the Command and Parameter objects.
+                SqlCommand command = new SqlCommand(queryString, connection);
+
+                command.Parameters.AddWithValue("@rut", alumno.rut);
+                command.Parameters.AddWithValue("@nombre", alumno.nombre);
+                command.Parameters.AddWithValue("@nacimiento", alumno.nacimiento);
+                command.Parameters.AddWithValue("@genero", alumno.genero);
+                command.Parameters.AddWithValue("@id", alumno.id);
+
+                try
+                {
+                    connection.Open();
+
+                    int modified = (int)command.ExecuteScalar();
+
+                    if(modified == 0)
+                    {
+                        //Console.WriteLine("No se actualizó ningún dato del alumno!!");
+                        throw new Exception("No se actualizó ningún dato del alumno!!");
+                    }
+
+                    connection.Close();
+                }
+                catch (Exception ex)
+                {
+                    //Console.WriteLine(ex.Message);
+                    throw new Exception(ex.Message);
+                }
+            }
+
+            return alumno;
+        }
+
+        public void deleteAlumno(int id_alumno)
+        {
+            string queryString = "delete from alumno where id = @id select cast(@@ROWCOUNT as int)";
+
+            // Create and open the connection in a using block. This
+            // ensures that all resources will be closed and disposed
+            // when the code exits.
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["instituto_alfa"].ConnectionString))
+            {
+                // Create the Command and Parameter objects.
+                SqlCommand command = new SqlCommand(queryString, connection);
+
+                command.Parameters.AddWithValue("@id", id_alumno);                
+
+                try
+                {
+                    connection.Open();
+
+                    int modified = (int)command.ExecuteScalar();
+
+                    if (modified == 0)
+                    {
+                        //Console.WriteLine("No se eliminó el alumno!!");
+                        throw new Exception("No se eliminó el alumno!!");
+
+                    }
+
+                    connection.Close();
+                }
+                catch (Exception ex)
+                {
+                    //Console.WriteLine(ex.Message);
+                    throw new Exception(ex.Message);
+                }
+            }
+            
         }
 
         private Alumno createAlumnoFromDataRecord(IDataRecord record)
