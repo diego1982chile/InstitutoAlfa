@@ -1,3 +1,6 @@
+USE instituto_alfa
+GO
+
 --Poblar anyos
 insert into anyo values (2011);
 insert into anyo values (2012);
@@ -165,7 +168,9 @@ insert into alumno values ('11149824-5', 'Esperanza Sierra', DATEADD(DAY, ABS(CH
 --Poblar profesor_asignatura
 begin
 
-	declare @id_profesor int, @id_asignatura int;
+	declare 
+	@id_profesor int, 
+	@id_asignatura int;
 
 	declare cursor_profesores cursor for 
 	select id from profesor;
@@ -213,7 +218,9 @@ on pa.id_asignatura = a.id;
 --Poblar sala_asignatura
 begin
 
-	declare @id_sala int, @id_asignatura int;
+	declare 
+	@id_sala int;
+	--@id_asignatura int;
 
 	declare cursor_salas cursor for 
 	select id from sala;
@@ -258,10 +265,18 @@ on s.id = sa.id_sala
 inner join asignatura a
 on sa.id_asignatura = a.id;
 
+delete from curso
+
 --Poblar cursos
 begin
 
-	declare @id_anyo int, @id_bimestre int, @id_asignatura int, @id_sala int, @id_profesor int, @codigo_curso nvarchar(50);
+	declare 
+	@id_anyo int, 
+	@id_bimestre int, 
+	--@id_asignatura int, 
+	--@id_sala int, 
+	--@id_profesor int, 
+	@codigo_curso nvarchar(50);
 
 	declare cursor_anyos cursor for 
 	select id from anyo;
@@ -297,11 +312,14 @@ begin
 			while @@fetch_status = 0
 			begin
 				if rand() > 0.9
-				begin
+				begin try
 					set @codigo_curso = 'C' + convert(varchar, @id_anyo) + convert(varchar, @id_bimestre) +  convert(varchar, @id_asignatura) + convert(varchar, @id_sala) + convert(varchar, @id_profesor)
 					--print 'voy a insertar curso: ' + @codigo_curso
-					insert into curso values (@id_anyo, @id_bimestre, @id_asignatura, @id_sala, @id_profesor, @codigo_curso)
-				end
+					insert into curso values (@id_anyo, @id_bimestre, @id_asignatura, @id_sala, @id_profesor, @codigo_curso, 'Abierto')
+				end try
+				begin catch
+					print ERROR_MESSAGE()
+				end catch
 				fetch next from cursor_cursos into @id_asignatura, @id_sala, @id_profesor
 			end
 
@@ -373,12 +391,15 @@ begin
 			while @@fetch_status = 0
 			begin
 				if rand() > 0.97
-				begin
+				begin try
 					set @nota = round(ABS(CHECKSUM(NEWID()) % 4) + 3 + rand(),1)
 					set @codigo = 'M' + convert(varchar, @id_alumno) + convert(varchar, @id_curso)
 					print 'voy a insertar alumno: ' + convert(varchar, @id_alumno)  + ' para curso: ' + convert(varchar, @id_curso)
 					insert into matricula values (@id_alumno, @id_curso, @nota, @codigo)
-				end
+				end try
+				begin catch
+					print ERROR_MESSAGE()
+				end catch
 				fetch next from cursor_cursos into @id_curso
 			end
 

@@ -1,4 +1,15 @@
-
+USE master;
+GO
+IF DB_ID (N'instituto_alfa') IS NOT NULL
+DROP DATABASE instituto_alfa;
+GO
+CREATE DATABASE instituto_alfa;
+GO
+-- Verify the database files and sizes
+SELECT name, size, size*1.0/128 AS [Size in MBs]
+FROM sys.master_files
+WHERE name = N'instituto_alfa';
+GO
 
 USE instituto_alfa
 GO
@@ -112,7 +123,8 @@ CREATE TABLE [curso]
 	[id_asignatura] int,
 	[id_sala] int,
 	[id_profesor] int,
-	[codigo] varchar(50)
+	[codigo] varchar(50),
+	[estado] varchar(50)
 )
 ;
 
@@ -145,7 +157,8 @@ CREATE TABLE [profesor_asignatura]
 CREATE TABLE [sala]
 (
 	[id] int IDENTITY(1,1) NOT NULL,
-	[codigo] varchar(50)
+	[codigo] varchar(50),
+	[capacidad] int
 )
 ;
 
